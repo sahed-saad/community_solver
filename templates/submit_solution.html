@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Propose Solution - Community Solver{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>Propose a Solution
+                    </h2>
+                    <p class="mb-0 mt-2">Help solve: <strong>{{ problem.title }}</strong></p>
+                </div>
+                
+                <div class="card-body p-4">
+                    <!-- Problem Context -->
+                    <div class="alert alert-info mb-4">
+                        <h6 class="alert-heading">
+                            <i class="fas fa-info-circle me-2"></i>Problem Context
+                        </h6>
+                        <p class="mb-2"><strong>Category:</strong> {{ problem.category }}</p>
+                        <p class="mb-2"><strong>Severity:</strong> {{ problem.severity }}</p>
+                        <p class="mb-2"><strong>Location:</strong> {{ problem.location }}</p>
+                        <p class="mb-0"><strong>Description:</strong> {{ problem.description[:200] }}{% if problem.description|length > 200 %}...{% endif %}</p>
+                    </div>
+                    
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Solution Title *</label>
+                            <input type="text" class="form-control" id="title" name="title" required 
+                                   placeholder="Brief, descriptive title of your solution">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Solution Description *</label>
+                            <textarea class="form-control" id="description" name="description" rows="8" required
+                                      placeholder="Describe your solution in detail. Include:
+- What the solution involves
+- How it addresses the problem
+- Who would implement it
+- What resources are needed
+- Expected timeline
+- How success would be measured"></textarea>
+                            <div class="form-text">
+                                <strong>Tips for a great solution:</strong>
+                                <ul class="mb-0 mt-2">
+                                    <li>Be specific and actionable</li>
+                                    <li>Consider feasibility and resources</li>
+                                    <li>Include implementation steps</li>
+                                    <li>Think about potential challenges</li>
+                                    <li>Consider community impact</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="proposed_by" class="form-label fw-bold">Your Name/Organization *</label>
+                            <input type="text" class="form-control" id="proposed_by" name="proposed_by" required
+                                   placeholder="Your full name or organization name">
+                        </div>
+                        
+                        <div class="alert alert-success">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-check-circle me-2"></i>What happens next?
+                            </h6>
+                            <ul class="mb-0">
+                                <li>Your solution will be visible to the community</li>
+                                <li>Community members can vote on your solution</li>
+                                <li>Stakeholders will be notified of your proposal</li>
+                                <li>Top solutions may be selected for implementation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('view_problem', id=problem.id) }}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Problem
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Solution
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

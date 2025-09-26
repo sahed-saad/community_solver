@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Problem - Community Solver{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>Submit a Community Problem
+                    </h2>
+                    <p class="mb-0 mt-2">Help us identify and solve community challenges through collaborative problem-solving</p>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label fw-bold">Problem Title *</label>
+                                <input type="text" class="form-control" id="title" name="title" required 
+                                       placeholder="Brief, descriptive title of the problem">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="category" class="form-label fw-bold">Category *</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Social Division">Social Division</option>
+                                    <option value="Disinformation">Disinformation</option>
+                                    <option value="Community Safety">Community Safety</option>
+                                    <option value="Infrastructure">Infrastructure</option>
+                                    <option value="Environment">Environment</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Economic">Economic</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Problem Description *</label>
+                            <textarea class="form-control" id="description" name="description" rows="6" required
+                                      placeholder="Provide a detailed description of the problem, including its impact on the community, who is affected, and any relevant context..."></textarea>
+                            <div class="form-text">Be as specific as possible. Include details about the problem's scope, impact, and any relevant background information.</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="severity" class="form-label fw-bold">Severity Level *</label>
+                                <select class="form-select" id="severity" name="severity" required>
+                                    <option value="">Select severity level</option>
+                                    <option value="Critical">Critical - Immediate action needed</option>
+                                    <option value="High">High - Significant impact on community</option>
+                                    <option value="Medium">Medium - Moderate impact</option>
+                                    <option value="Low">Low - Minor impact</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label fw-bold">Location *</label>
+                                <input type="text" class="form-control" id="location" name="location" required
+                                       placeholder="City, State/Province, Country">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="submitted_by" class="form-label fw-bold">Your Name *</label>
+                            <input type="text" class="form-control" id="submitted_by" name="submitted_by" required
+                                   placeholder="Your full name or organization name">
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>What happens next?
+                            </h6>
+                            <ul class="mb-0">
+                                <li>Our AI will analyze your problem and provide insights</li>
+                                <li>Relevant stakeholders will be identified and notified</li>
+                                <li>Community members can propose solutions</li>
+                                <li>Progress will be tracked and visualized</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Problem
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

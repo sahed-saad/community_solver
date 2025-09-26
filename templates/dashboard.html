@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Community Solver{% endblock %}
+
+{% block extra_head %}
+<style>
+    .chart-container {
+        position: relative;
+        height: 400px;
+        margin: 20px 0;
+    }
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .stat-card h3 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    .stat-card p {
+        margin-bottom: 0;
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Dashboard Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold mb-3">
+                <i class="fas fa-chart-bar me-3 text-primary"></i>Community Dashboard
+            </h1>
+            <p class="lead text-muted">Comprehensive overview of community problems, solutions, and stakeholder engagement</p>
+        </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="row mb-5">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <h3>{{ problems|length }}</h3>
+                <p>Total Problems</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <h3>{{ solutions|length }}</h3>
+                <p>Proposed Solutions</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <h3>{{ stakeholders|length }}</h3>
+                <p>Active Stakeholders</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <h3>{{ problems|selectattr('status', 'equalto', 'Resolved')|list|length }}</h3>
+                <p>Resolved Problems</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Section -->
+    <div class="row mb-5">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-pie me-2 text-primary"></i>Problems by Category
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar me-2 text-warning"></i>Problem Severity Distribution
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="severityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line me-2 text-success"></i>Problem Submission Timeline
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clock me-2 text-info"></i>Recent Problems
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if problems %}
+                    <div class="list-group list-group-flush">
+                        {% for problem in problems[:5] %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ problem.title }}</h6>
+                                <small class="text-muted">{{ problem.submitted_date.strftime('%m/%d/%Y') }}</small>
+                            </div>
+                            <p class="mb-1">{{ problem.description[:100] }}{% if problem.description|length > 100 %}...{% endif %}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="badge bg-{{ 'danger' if problem.severity == 'Critical' else 'warning' if problem.severity == 'High' else 'info' if problem.severity == 'Medium' else 'success' }} me-2">
+                                        {{ problem.severity }}
+                                    </span>
+                                    <span class="badge bg-primary">{{ problem.category }}</span>
+                                </div>
+                                <a href="{{ url_for('view_problem', id=problem.id) }}" class="btn btn-outline-primary btn-sm">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No problems submitted yet</h5>
+                        <p class="text-muted">Be the first to submit a community problem!</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2 text-success"></i>Top Stakeholders
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if stakeholders %}
+                    <div class="list-group list-group-flush">
+                        {% for stakeholder in stakeholders[:5] %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ stakeholder.name }}</h6>
+                                <small class="text-muted">{{ stakeholder.role }}</small>
+                            </div>
+                            {% if stakeholder.organization %}
+                            <p class="mb-1 text-muted">{{ stakeholder.organization }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-user-plus fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No stakeholders yet</h5>
+                        <p class="text-muted">Join as a stakeholder to help solve community problems!</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Category Chart
+    const categoryChartData = {{ category_chart|safe }};
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(categoryCtx, categoryChartData);
+    
+    // Severity Chart
+    const severityChartData = {{ severity_chart|safe }};
+    const severityCtx = document.getElementById('severityChart').getContext('2d');
+    new Chart(severityCtx, severityChartData);
+    
+    // Timeline Chart
+    const timelineChartData = {{ timeline_chart|safe }};
+    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    new Chart(timelineCtx, timelineChartData);
+</script>
+{% endblock %}

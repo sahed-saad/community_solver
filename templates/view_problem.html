@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}{{ problem.title }} - Community Solver{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Problem Header -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h1 class="h3 mb-2">{{ problem.title }}</h1>
+                            <div class="d-flex gap-2 mb-2">
+                                <span class="badge bg-{{ 'danger' if problem.severity == 'Critical' else 'warning' if problem.severity == 'High' else 'info' if problem.severity == 'Medium' else 'success' }} fs-6">
+                                    {{ problem.severity }}
+                                </span>
+                                <span class="badge bg-primary fs-6">{{ problem.category }}</span>
+                                <span class="badge bg-secondary fs-6">{{ problem.status }}</span>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>{{ problem.location }}<br>
+                                <i class="fas fa-user me-1"></i>{{ problem.submitted_by }}<br>
+                                <i class="fas fa-clock me-1"></i>{{ problem.submitted_date.strftime('%B %d, %Y at %I:%M %p') }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Problem Description</h5>
+                    <p class="card-text">{{ problem.description }}</p>
+                    
+                    <!-- AI Analysis -->
+                    {% if problem.ai_analysis %}
+                    <div class="mt-4">
+                        <h5 class="card-title">
+                            <i class="fas fa-brain me-2 text-primary"></i>AI Analysis
+                        </h5>
+                        <div class="ai-analysis bg-light p-3 rounded">
+                            <pre class="mb-0">{{ problem.ai_analysis }}</pre>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <h6 class="text-primary">{{ problem.stakeholder_count }}</h6>
+                            <small class="text-muted">Stakeholders</small>
+                        </div>
+                        <div class="col-4">
+                            <h6 class="text-success">{{ problem.solution_count }}</h6>
+                            <small class="text-muted">Solutions</small>
+                        </div>
+                        <div class="col-4">
+                            <h6 class="text-info">{{ problem.submitted_date.strftime('%m/%d') }}</h6>
+                            <small class="text-muted">Submitted</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Solutions Section -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-lightbulb me-2 text-warning"></i>Proposed Solutions
+                    </h4>
+                    <a href="{{ url_for('submit_solution', problem_id=problem.id) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i>Propose Solution
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    {% if solutions %}
+                        {% for solution in solutions %}
+                        <div class="solution-item border-bottom pb-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-1">{{ solution.title }}</h6>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-success">{{ solution.votes }} votes</span>
+                                    <a href="{{ url_for('vote_solution', solution_id=solution.id) }}" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-thumbs-up me-1"></i>Vote
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-2">{{ solution.description }}</p>
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>Proposed by {{ solution.proposed_by }} on {{ solution.proposed_date.strftime('%B %d, %Y') }}
+                            </small>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-lightbulb fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No solutions proposed yet</h5>
+                            <p class="text-muted">Be the first to propose a solution for this problem!</p>
+                            <a href="{{ url_for('submit_solution', problem_id=problem.id) }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Propose First Solution
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-pie me-2 text-info"></i>Problem Stats
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6 mb-3">
+                            <div class="stat-item">
+                                <h4 class="text-primary">{{ problem.stakeholder_count }}</h4>
+                                <small class="text-muted">Stakeholders</small>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="stat-item">
+                                <h4 class="text-success">{{ problem.solution_count }}</h4>
+                                <small class="text-muted">Solutions</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <h4 class="text-warning">{{ problem.severity }}</h4>
+                                <small class="text-muted">Severity</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-item">
+                                <h4 class="text-info">{{ problem.category }}</h4>
+                                <small class="text-muted">Category</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-handshake me-2 text-success"></i>Get Involved
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Help solve this community problem by:</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Proposing solutions
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Voting on solutions
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Joining as a stakeholder
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Sharing with your network
+                        </li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('submit_solution', problem_id=problem.id) }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Propose Solution
+                        </a>
+                        <a href="{{ url_for('join_stakeholder') }}" class="btn btn-outline-success">
+                            <i class="fas fa-handshake me-2"></i>Join as Stakeholder
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

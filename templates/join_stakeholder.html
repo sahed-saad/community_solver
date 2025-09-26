@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Join as Stakeholder - Community Solver{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-info text-white">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-handshake me-2"></i>Join as a Stakeholder
+                    </h2>
+                    <p class="mb-0 mt-2">Help solve community problems by becoming an engaged stakeholder</p>
+                </div>
+                
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="mb-3">Why Become a Stakeholder?</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <i class="fas fa-users text-primary me-3 mt-1"></i>
+                                        <div>
+                                            <h6>Community Impact</h6>
+                                            <p class="text-muted mb-0">Directly influence solutions that affect your community</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <i class="fas fa-network-wired text-success me-3 mt-1"></i>
+                                        <div>
+                                            <h6>Network Building</h6>
+                                            <p class="text-muted mb-0">Connect with other stakeholders and community leaders</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <i class="fas fa-chart-line text-warning me-3 mt-1"></i>
+                                        <div>
+                                            <h6>Track Progress</h6>
+                                            <p class="text-muted mb-0">Monitor the impact of implemented solutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <i class="fas fa-bell text-info me-3 mt-1"></i>
+                                        <div>
+                                            <h6>Stay Informed</h6>
+                                            <p class="text-muted mb-0">Get notified about relevant problems and solutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label fw-bold">Full Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required
+                                       placeholder="Your full name">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label fw-bold">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required
+                                       placeholder="your.email@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label fw-bold">Your Role *</label>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="">Select your role</option>
+                                    <option value="Government">Government Official</option>
+                                    <option value="Community Groups">Community Leader</option>
+                                    <option value="Business">Business Owner/Representative</option>
+                                    <option value="Education">Educator/Academic</option>
+                                    <option value="Healthcare">Healthcare Professional</option>
+                                    <option value="Media">Media/Journalist</option>
+                                    <option value="NGOs">NGO Representative</option>
+                                    <option value="Resident">Community Resident</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="organization" class="form-label">Organization (Optional)</label>
+                                <input type="text" class="form-control" id="organization" name="organization"
+                                       placeholder="Your organization or company name">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="interests" class="form-label">Areas of Interest (Optional)</label>
+                            <textarea class="form-control" id="interests" name="interests" rows="3"
+                                      placeholder="Describe your areas of interest or expertise (e.g., environmental issues, education, public safety, economic development, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-info-circle me-2"></i>What happens after you join?
+                            </h6>
+                            <ul class="mb-0">
+                                <li>You'll be notified about problems in your areas of interest</li>
+                                <li>You can participate in solution discussions and voting</li>
+                                <li>You'll receive updates on community progress</li>
+                                <li>You can propose solutions and collaborate with others</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-info btn-lg">
+                                <i class="fas fa-user-plus me-2"></i>Join as Stakeholder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
