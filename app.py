@@ -9,7 +9,7 @@ from src.visualization.chart_generator import ChartGenerator
 from src.stakeholder.engagement_manager import EngagementManager
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'community-solver-2024'
+app.config['SECRET_KEY'] = 'community-solver-2025'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///community_solver.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

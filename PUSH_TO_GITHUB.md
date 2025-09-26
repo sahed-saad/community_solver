@@ -17,7 +17,7 @@ git push -u origin main
 1. Go to https://github.com and sign in
 2. Click the "+" button → "New repository"
 3. Repository name: `community-solver`
-4. Description: `Community Solver - BYTE Hacks 2024: AI-powered platform for collaborative community problem-solving and stakeholder engagement`
+4. Description: `Community Solver - BYTE Hacks 2025: AI-powered platform for collaborative community problem-solving and stakeholder engagement`
 5. Make it **Public** (recommended for hackathon)
 6. **Don't** initialize with README (we already have files)
 7. Click "Create repository"

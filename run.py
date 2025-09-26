@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Community Solver - Main Application Runner
-BYTE Hacks 2024 - Strengthening Society
+BYTE Hacks 2025 - Strengthening Society
 """
 
 import os
@@ -128,7 +128,7 @@ def setup_database():
 def main():
     """Main application entry point"""
     print("=" * 60)
-    print("🌍 Community Solver - BYTE Hacks 2024")
+    print("🌍 Community Solver - BYTE Hacks 2025")
     print("   Strengthening Society Through Collaborative Problem-Solving")
     print("=" * 60)
     

@@ -45,7 +45,7 @@ Your Community Solver application is now **fully deployed and running**!
    - Stakeholder engagement metrics
    - Solution effectiveness tracking
 
-### 🏆 BYTE Hacks 2024 - Strengthening Society
+### 🏆 BYTE Hacks 2025 - Strengthening Society
 
 This application directly addresses the hackathon theme:
 

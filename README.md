@@ -1,5 +1,5 @@
 # 🌍 Community Solver
-**BYTE Hacks 2024 - Strengthening Society**
+**BYTE Hacks 2025 - Strengthening Society**
 
 A comprehensive community problem-solving platform that leverages AI-powered analysis, data visualization, and stakeholder engagement to address local and regional challenges through evidence-based solutions.
 
@@ -9,7 +9,7 @@ Community Solver is an innovative platform designed to help communities identify
 
 ### 🚀 **Ready to Deploy - Complete Solution**
 
-This is a **fully functional, end-to-end application** built for BYTE Hacks 2024, focusing on:
+This is a **fully functional, end-to-end application** built for BYTE Hacks 2025, focusing on:
 - **Bridging Social Divisions** through collaborative problem-solving
 - **Combating Disinformation** with AI-powered fact-checking and analysis
 - **Fostering Inclusive Communities** through stakeholder engagement

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Community Solver Deployment Script
-BYTE Hacks 2024 - Strengthening Society
+BYTE Hacks 2025 - Strengthening Society
 """
 
 import os
